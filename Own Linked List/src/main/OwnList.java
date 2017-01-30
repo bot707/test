@@ -182,7 +182,11 @@ public class OwnList<T extends Comparable<T>> implements Iterable<T>, Comparable
 			}
 		}
 	}
+	@Override
 	public int compareTo(OwnList<T> list){
+		if(this.isEmpty() || list.isEmpty()){
+			throw new NoSuchElementException();
+		}
 		if(this.count == list.count){
 			Entry thisCurrent = this.firstEntry.nextEntry;
 			Entry listCurrent = list.firstEntry.nextEntry;
