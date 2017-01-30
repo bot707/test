@@ -3,7 +3,7 @@ package main;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class OwnList<T> implements Iterable<T>{
+public class OwnList<T extends Comparable<T>> implements Iterable<T>, Comparable<OwnList<T>>{
 	
 	private Entry firstEntry;
 	private Entry lastEntry;
@@ -180,6 +180,25 @@ public class OwnList<T> implements Iterable<T>{
 				current = current.nextEntry;
 				return current.data;
 			}
+		}
+	}
+	public int compareTo(OwnList<T> list){
+		if(this.count == list.count){
+			Entry thisCurrent = this.firstEntry.nextEntry;
+			Entry listCurrent = list.firstEntry.nextEntry;
+			for(int i = 0; i < this.count; i++){
+				if(thisCurrent.data.compareTo(listCurrent.data) != 0){
+					return thisCurrent.data.compareTo(listCurrent.data);
+				}
+				else{
+					thisCurrent = thisCurrent.nextEntry;
+					listCurrent = listCurrent.nextEntry;
+				}
+			}
+			return 0;
+		}
+		else{
+			return this.count - list.count;
 		}
 	}
 }

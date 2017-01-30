@@ -1,6 +1,8 @@
 package main;
 
 import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class Test {
 	public static void main(String[] args){
@@ -62,5 +64,33 @@ public class Test {
 				testList.removeEntry(0);
 			}
 			System.out.println("Done. Number of elements: " + testList.count() + "\n");
+
+			String[] str = {"a| bA11A1\\c/d?e<f>g,h.i%g", "a1c2b", "fff", "ffd", ""};
+			SortedSet<OwnList<String>> testSet = task3Method(str);
+			
+			for(OwnList<String> s: testSet){
+				System.out.println(s.toString());
+			}
+			
+	}
+
+	/**
+	 * Creates SortedSet from OwnList<String> lists that are created
+	 * from splitting each specified string.
+	 * @param stringList Array of strings
+	 * @return SortedSet collections of OwnLists
+	 */
+	public static SortedSet<OwnList<String>> task3Method(String[] stringList){
+		SortedSet<OwnList<String>> resultSet= new TreeSet<>();
+		for(String s: stringList){
+			OwnList<String> tempList = new OwnList<>();
+			for(String tempS : s.split("[^A-Za-z]")){
+				if(!tempS.equals("")){
+					tempList.addEntry(tempS);
+				}
+			}
+			resultSet.add(tempList);
+		}
+		return resultSet;
 	}
 }
